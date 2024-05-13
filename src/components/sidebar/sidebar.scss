@@ -36,13 +36,13 @@
       padding: 4px;
       cursor: pointer;
 
-      &:hover {
-        color: #06c2d4;
-      }
-
       .icons {
         color: #06c2d4;
         font-size: 18px;
+      }
+
+      &:hover {
+        background-color: #06c3d41c;
       }
 
       span {
@@ -50,6 +50,10 @@
         font-weight: 600;
         color: #888;
         margin-left: 10px;
+
+        &:hover {
+          color: #06c2d4;
+        }
       }
     }
   }

@@ -4,28 +4,37 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">eazyonline</span>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">eazyonline</span>
+        </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
-          <li>
-            <DashboardIcon className="icons" />
-            <span>Dashboard</span>
-          </li>
-          <li>
-            <PeopleIcon className="icons" />
-            <span>Users</span>
-          </li>
-          <li>
-            <AssignmentTurnedInIcon className="icons" />
-            <span>Tasks</span>
-          </li>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <li>
+              <DashboardIcon className="icons" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <li>
+              <PeopleIcon className="icons" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link to="/tasks" style={{ textDecoration: "none" }}>
+            <li>
+              <AssignmentTurnedInIcon className="icons" />
+              <span>Tasks</span>
+            </li>
+          </Link>
           <li>
             <LogoutIcon className="icons" />
             <span>Logout</span>

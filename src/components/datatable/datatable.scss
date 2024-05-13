@@ -2,6 +2,19 @@
   height: 600px;
   padding: 20px;
 
+  .datatableTitle {
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .createLink {
+      color: rgb(0, 170, 0);
+    }
+  }
+
   .cellWithImg {
     display: flex;
     align-items: center;
@@ -23,10 +36,19 @@
     .viewButton {
       padding: 2px 5px;
       color: green;
+
+      &:hover {
+        background-color: rgba(0, 128, 0, 0.212);
+      }
     }
     .deleteButton {
       padding: 2px 5px;
       color: crimson;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(220, 20, 60, 0.212);
+      }
     }
   }
 }
