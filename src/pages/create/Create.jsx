@@ -1,7 +1,8 @@
 import React from "react";
+import "./create.scss";
 
 const Create = () => {
-  return <div>Create</div>;
+  return <div>New</div>;
 };
 
 export default Create;
