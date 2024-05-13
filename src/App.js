@@ -5,8 +5,15 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import Create from "./pages/create/Create";
 import { taskInputs, userInputs } from "./formSource";
+import { Navigate } from "react-router-dom";
 
 function App() {
+  const currentUser = false;
+
+  const RequireAuth = ({ children }) => {
+    return currentUser ? children : <Navigate to="/login" />;
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
