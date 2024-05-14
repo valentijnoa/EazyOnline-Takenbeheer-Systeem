@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatableSource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { auth } from "../../firebase";
 
 const Datatable = () => {
   const [data, setData] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,12 @@ const Datatable = () => {
       }
     };
     fetchData();
+
+    // Check if the current user is admin
+    const currentUser = auth.currentUser;
+    if (currentUser && currentUser.email === "admin@eazy.nl") {
+      setIsAdmin(true);
+    }
   }, []);
 
   const handleDelete = async (id) => {
@@ -49,12 +56,14 @@ const Datatable = () => {
             >
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
+            {isAdmin && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDelete(params.row.id)}
+              >
+                Delete
+              </div>
+            )}
           </div>
         );
       },
@@ -64,13 +73,15 @@ const Datatable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Users
-        <Link
-          to="/users/create"
-          style={{ textDecoration: "none" }}
-          className="createLink"
-        >
-          Add New User
-        </Link>
+        {isAdmin && (
+          <Link
+            to="/users/create"
+            style={{ textDecoration: "none" }}
+            className="createLink"
+          >
+            Add New User
+          </Link>
+        )}
       </div>
       <DataGrid
         rows={data}
