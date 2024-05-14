@@ -3,12 +3,14 @@ import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 const Single = () => {
-  const { userId } = useParams(); // Get the user ID from URL parameter
+  const { userId } = useParams();
   const [userData, setUserData] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [updatedData, setUpdatedData] = useState({});
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,7 +29,32 @@ const Single = () => {
     };
 
     fetchUserData();
-  }, [userId]); // Re-fetch data when userId changes
+  }, [userId]);
+
+  const handleEdit = () => {
+    setEditMode(true);
+    // Initialize updatedData with current user data
+    setUpdatedData(userData);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // Update the state with the edited data
+    setUpdatedData({ ...updatedData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const docRef = doc(db, "users", userId);
+      await updateDoc(docRef, updatedData);
+      setUserData(updatedData); // Update userData state with edited data
+      setEditMode(false); // Exit edit mode
+      console.log("User data updated successfully!");
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
 
   return (
     <div className="single">
@@ -35,9 +62,43 @@ const Single = () => {
       <div className="singleContainer">
         <Navbar />
         <div className="userInfo">
-          <div className="edit">Edit</div>
+          <div className="edit" onClick={handleEdit}>
+            Edit
+          </div>
           <h1 className="title">Information</h1>
-          {userData ? (
+          {editMode ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="fullName"
+                value={updatedData.fullName}
+                onChange={handleChange}
+                placeholder="Full Name"
+              />
+              <input
+                type="text"
+                name="email"
+                value={updatedData.email}
+                onChange={handleChange}
+                placeholder="Email"
+              />
+              <input
+                type="text"
+                name="phone"
+                value={updatedData.phone}
+                onChange={handleChange}
+                placeholder="Phone"
+              />
+              <input
+                type="text"
+                name="address"
+                value={updatedData.address}
+                onChange={handleChange}
+                placeholder="Address"
+              />
+              <button type="submit">Submit</button>
+            </form>
+          ) : userData ? (
             <div className="item">
               <img
                 className="itemImg"
