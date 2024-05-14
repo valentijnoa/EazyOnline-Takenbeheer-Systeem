@@ -60,12 +60,5 @@ export const taskColumns = [
     field: "User",
     headerName: "User",
     width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
   },
 ];
