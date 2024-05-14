@@ -26,8 +26,13 @@ const Datatable = () => {
     fetchData();
   }, []);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "users", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log("Error deleting document: ", error);
+    }
   };
 
   const actions = [

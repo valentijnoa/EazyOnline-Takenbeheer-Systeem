@@ -38,12 +38,18 @@ const Create = ({ inputs, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
+
+      // Send password reset email
       await sendPasswordResetEmail(auth, data.email);
       console.log(
         "User created successfully and password reset email sent:",
         res.user
       );
+      //show alert for succesful user creation
       alert("User created successfully!");
+
+      //go back to the previous page
+      window.history.back();
     } catch (err) {
       console.log(err);
       console.error("Error creating user: ", err);
