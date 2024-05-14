@@ -10,7 +10,10 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 
 const Create = ({ inputs, title }) => {
   const [data, setData] = useState({});
@@ -35,8 +38,16 @@ const Create = ({ inputs, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
+      await sendPasswordResetEmail(auth, data.email);
+      console.log(
+        "User created successfully and password reset email sent:",
+        res.user
+      );
+      alert("User created successfully!");
     } catch (err) {
       console.log(err);
+      console.error("Error creating user: ", err);
+      alert(`Error creating user: ${err.message}`);
     }
   };
   return (
