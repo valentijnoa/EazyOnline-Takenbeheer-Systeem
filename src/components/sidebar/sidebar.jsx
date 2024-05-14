@@ -7,16 +7,25 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
+  const { dispatch } = useContext(AuthContext);
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
         console.log("User signed out successfully");
+
         // Clear user-related data from localStorage
         localStorage.removeItem("erToken");
         localStorage.removeItem("user");
+
+        // Dispatch the logout action
+        dispatch({ type: "LOGOUT" });
+
         // Redirect to the login page or any other route after logout
         window.location.href = "/login";
       })
