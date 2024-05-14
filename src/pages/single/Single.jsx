@@ -56,16 +56,16 @@ const Single = () => {
     }
   };
 
+  const handleCancel = () => {
+    setEditMode(false); // Exit edit mode without submitting changes
+  };
+
   return (
     <div className="single">
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
         <div className="userInfo">
-          <div className="edit" onClick={handleEdit}>
-            Edit
-          </div>
-          <h1 className="title">Information</h1>
           {editMode ? (
             <form onSubmit={handleSubmit}>
               <input
@@ -97,6 +97,9 @@ const Single = () => {
                 placeholder="Address"
               />
               <button type="submit">Submit</button>
+              <button type="button" onClick={handleCancel}>
+                Cancel
+              </button>
             </form>
           ) : userData ? (
             <div className="item">
@@ -119,6 +122,9 @@ const Single = () => {
                   <span>Address:</span>
                   <span>{userData.address}</span>
                 </div>
+              </div>
+              <div className="edit" onClick={handleEdit}>
+                Edit
               </div>
             </div>
           ) : (
