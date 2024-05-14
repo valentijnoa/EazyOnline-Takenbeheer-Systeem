@@ -6,9 +6,11 @@ import Single from "./pages/single/Single";
 import Create from "./pages/create/Create";
 import { taskInputs, userInputs } from "./formSource";
 import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const currentUser = false;
+  const { currentUser } = useContext(AuthContext);
 
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/login" />;
@@ -19,22 +21,58 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />}></Route>
             <Route path="login" element={<Login />}></Route>
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            ></Route>
             <Route path="users">
-              <Route index element={<List />}></Route>
-              <Route path=":userId" element={<Single />}></Route>
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List />
+                  </RequireAuth>
+                }
+              ></Route>
+              <Route
+                path=":userId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              ></Route>
               <Route
                 path="create"
-                element={<Create inputs={userInputs} title="Add new user" />}
+                element={
+                  <RequireAuth>
+                    <Create inputs={userInputs} title="Add new user" />
+                  </RequireAuth>
+                }
               ></Route>
             </Route>
             <Route path="tasks">
-              <Route index element={<List />}></Route>
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List />
+                  </RequireAuth>
+                }
+              ></Route>
               <Route path=":taskId" element={<Single />}></Route>
               <Route
                 path="create"
-                element={<Create inputs={taskInputs} title="Add new task" />}
+                element={
+                  <RequireAuth>
+                    <Create inputs={taskInputs} title="Add new task" />
+                  </RequireAuth>
+                }
               ></Route>
             </Route>
           </Route>
