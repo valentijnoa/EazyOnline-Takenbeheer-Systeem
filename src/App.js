@@ -2,8 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home//Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
+import ListTasks from "./pages/list/ListTasks";
 import Single from "./pages/single/Single";
+import SingleTask from "./pages/single/SingleTask";
 import Create from "./pages/create/Create";
+import TaskCreate from "./pages/create/TaskCreate";
 import { taskInputs, userInputs } from "./formSource";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
@@ -61,16 +64,16 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List />
+                    <ListTasks />
                   </RequireAuth>
                 }
               ></Route>
-              <Route path=":taskId" element={<Single />}></Route>
+              <Route path=":taskId" element={<SingleTask />}></Route>
               <Route
                 path="create"
                 element={
                   <RequireAuth>
-                    <Create inputs={taskInputs} title="Add new task" />
+                    <TaskCreate inputs={taskInputs} title="Add new task" />
                   </RequireAuth>
                 }
               ></Route>

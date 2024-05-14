@@ -44,31 +44,25 @@ export const userInputs = [
 
 export const taskInputs = [
   {
-    id: 1,
+    id: "Title",
     label: "Title",
     type: "text",
     placeholder: "task1",
   },
   {
-    id: 2,
+    id: "Description",
     label: "Description",
     type: "text",
     placeholder: "Description",
   },
   {
-    id: 3,
+    id: "Category",
     label: "Category",
     type: "text",
     placeholder: "Tasks",
   },
   {
-    id: 4,
-    label: "taskID",
-    type: "text",
-    placeholder: "100",
-  },
-  {
-    id: 5,
+    id: "User",
     label: "User",
     type: "text",
     placeholder: "Jeff",
