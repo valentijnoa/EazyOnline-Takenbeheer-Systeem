@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./create.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
@@ -50,7 +49,7 @@ const TaskCreate = ({ inputs, title }) => {
             <form onSubmit={handleNewTask}>
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                  <label htmlFor={input.id}>{input.label}</label>
                   <input
                     id={input.id}
                     type={input.type}
