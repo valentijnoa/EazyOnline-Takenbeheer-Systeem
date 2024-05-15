@@ -2,8 +2,9 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import TaskCreate from "../../pages/create/TaskCreate";
+import "@testing-library/jest-dom";
 
-// Mock Firebase dependencies
+// Mock Firebase
 jest.mock("firebase/app", () => ({
   initializeApp: jest.fn(),
 }));
@@ -20,7 +21,7 @@ jest.mock("firebase/auth", () => ({
   getAuth: jest.fn(),
 }));
 
-// Inputs that need to be passed to the TaskCreate component
+// Define the inputs for the form
 const inputs = [
   { id: "title", label: "Title", type: "text", placeholder: "Enter title" },
   {
@@ -31,9 +32,10 @@ const inputs = [
   },
 ];
 
-// Title for the TaskCreate component
+// Title for the component
 const title = "Create New Task";
 
+// testing the TaskCreate component for creating new task
 describe("TaskCreate component", () => {
   it("should successfully create a new task", async () => {
     const { getByLabelText, getByRole } = render(
@@ -53,14 +55,25 @@ describe("TaskCreate component", () => {
     // Simulate form submission
     fireEvent.click(getByRole("button", { name: /create task/i }));
 
-    // Wait for the expected outcome
-    await waitFor(() => {
-      // Assertions can be added here if needed
-    });
-
-    // Since there is a console log and alert on successful task creation,
-    // you might want to mock these as well to prevent pollution of test outputs.
     console.log = jest.fn();
     window.alert = jest.fn();
+  });
+
+  // Check if the form elements are correctly initialized
+  describe("Initial State of Form Elements", () => {
+    it("should render all inputs with correct placeholders and types", () => {
+      const { getByPlaceholderText } = render(
+        <MemoryRouter>
+          <TaskCreate inputs={inputs} title={title} />
+        </MemoryRouter>
+      );
+
+      // Check if the inputs are rendered with correct placeholders and types
+      inputs.forEach((input) => {
+        const inputElement = getByPlaceholderText(input.placeholder);
+        expect(inputElement).toBeInTheDocument();
+        expect(inputElement.type).toBe(input.type);
+      });
+    });
   });
 });
