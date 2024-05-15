@@ -13,9 +13,11 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext); // Get current user from AuthContext
 
+  // Component for routes that require authentication
   const RequireAuth = ({ children }) => {
+    // Redirect to login page if no user is logged in
     return currentUser ? children : <Navigate to="/login" />;
   };
 

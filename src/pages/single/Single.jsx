@@ -12,9 +12,11 @@ const Single = () => {
   const [editMode, setEditMode] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
 
+  // Fetch user data from firestore
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        // Reference to the user document in Firestore
         const docRef = doc(db, "users", userId);
         const docSnap = await getDoc(docRef);
 
@@ -31,18 +33,21 @@ const Single = () => {
     fetchUserData();
   }, [userId]);
 
+  // Function to handle the edit mode
   const handleEdit = () => {
     setEditMode(true);
     // Initialize updatedData with current user data
     setUpdatedData(userData);
   };
 
+  // Function to handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Update the state with the edited data
     setUpdatedData({ ...updatedData, [name]: value });
   };
 
+  // Handle form subission to update user data in firestore
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -56,8 +61,9 @@ const Single = () => {
     }
   };
 
+  // Handle cancel button to exit edit mode
   const handleCancel = () => {
-    setEditMode(false); // Exit edit mode without submitting changes
+    setEditMode(false);
   };
 
   return (

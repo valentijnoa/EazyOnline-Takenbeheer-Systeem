@@ -12,13 +12,16 @@ const SingleTask = () => {
   const [editMode, setEditMode] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
 
+  // Fetch task data from firestore
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
+        // Reference to the task document in Firestore
         const docRef = doc(db, "tasks", taskId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
+          // Set task data state with the fetched data
           setTaskData(docSnap.data());
         } else {
           console.log("No such document!");
@@ -31,22 +34,28 @@ const SingleTask = () => {
     fetchTaskData();
   }, [taskId]);
 
+  // Function to handle the edit mode
   const handleEdit = () => {
     setEditMode(true);
     setUpdatedData(taskData);
   };
 
+  // Function to handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedData({ ...updatedData, [name]: value });
   };
 
+  // Handle form submission to update task data in firestore
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Reference to the task document in Firestore
       const docRef = doc(db, "tasks", taskId);
       await updateDoc(docRef, updatedData);
+      // Update task data state with edited data
       setTaskData(updatedData);
+      // Exit edit mode
       setEditMode(false);
       console.log("Task data updated successfully!");
     } catch (error) {
@@ -54,6 +63,7 @@ const SingleTask = () => {
     }
   };
 
+  // Handle cancel button to exit edit mode
   const handleCancel = () => {
     setEditMode(false);
   };

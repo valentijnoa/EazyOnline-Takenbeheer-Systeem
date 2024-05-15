@@ -1,3 +1,4 @@
+// config for columns in the user datatable
 export const userColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
@@ -38,6 +39,7 @@ export const userColumns = [
   },
 ];
 
+// config for columns in the task datatable
 export const taskColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {

@@ -14,12 +14,15 @@ const Login = () => {
 
   const { dispatch } = useContext(AuthContext);
 
+  // Function to handle the login
   const handeLogin = (e) => {
     e.preventDefault();
 
+    // Sign in with email and password using Firebase authentication
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        // Dispatch a login action to the AuthContext
         dispatch({ type: "LOGIN", payload: user });
         navigate("/");
       })

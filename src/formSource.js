@@ -1,3 +1,4 @@
+// config for user input fields in user creation form
 export const userInputs = [
   {
     id: "username",
@@ -42,6 +43,7 @@ export const userInputs = [
   },
 ];
 
+// config for task input fields in task creation form
 export const taskInputs = [
   {
     id: "Title",

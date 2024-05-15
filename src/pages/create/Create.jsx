@@ -18,6 +18,7 @@ import {
 const Create = ({ inputs, title }) => {
   const [data, setData] = useState({});
 
+  //handle input change
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;

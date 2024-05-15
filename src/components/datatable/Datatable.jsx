@@ -11,6 +11,7 @@ const Datatable = () => {
   const [data, setData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Function to fetch data from Firestore
   useEffect(() => {
     const fetchData = async () => {
       let list = [];
@@ -33,6 +34,7 @@ const Datatable = () => {
     }
   }, []);
 
+  // Function to handle the deletion of a user
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "users", id));
@@ -42,6 +44,7 @@ const Datatable = () => {
     }
   };
 
+  // Actions column configuration for the DataGrid
   const actions = [
     {
       field: "action",

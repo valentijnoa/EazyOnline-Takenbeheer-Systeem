@@ -8,16 +8,20 @@ import { db } from "../../firebase";
 const TaskCreate = ({ inputs, title }) => {
   const [data, setData] = useState({});
 
+  // Function to handle input changes and update the form data state
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
 
+    // Update the form data state
     setData({ ...data, [id]: value });
   };
 
+  // Function to handle the creation of a new task
   const handleNewTask = async (e) => {
     e.preventDefault();
     try {
+      // Add a new document "tasks" collection in firestore
       await addDoc(collection(db, "tasks"), {
         ...data,
         timeStamp: serverTimestamp(),
