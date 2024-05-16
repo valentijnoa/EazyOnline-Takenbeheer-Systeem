@@ -74,15 +74,13 @@ const TaskDatatable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Tasks
-        {isAdmin && (
-          <Link
-            to="/tasks/create"
-            style={{ textDecoration: "none" }}
-            className="createLink"
-          >
-            Add New Task
-          </Link>
-        )}
+        <Link
+          to="/tasks/create"
+          style={{ textDecoration: "none" }}
+          className="createLink"
+        >
+          Add New Task
+        </Link>
       </div>
       <DataGrid
         rows={data}
