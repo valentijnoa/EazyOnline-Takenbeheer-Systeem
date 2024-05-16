@@ -28,12 +28,13 @@ export const userInputs = [
     id: "password",
     label: "Password",
     type: "password",
+    placeholder: "password",
   },
   {
     id: "address",
     label: "Address",
     type: "text",
-    placeholder: "Aalburgstraat 51, Arnhem 6844DG",
+    placeholder: "address",
   },
   {
     id: "country",
