@@ -71,8 +71,6 @@ describe("Navigation on View button click", () => {
     fireEvent.click(viewButton);
 
     // Check that the URL has changed to expected task detail URL
-    expect(history.location.pathname).toBe(
-      "/expected-path-after-clicking-view"
-    );
+    expect(history.location.pathname).toBe("/tasks/task");
   });
 });
