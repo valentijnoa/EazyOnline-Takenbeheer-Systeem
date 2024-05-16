@@ -11,6 +11,7 @@ const TaskDatatable = () => {
   const [data, setData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Fetch data from Firestore
   useEffect(() => {
     const fetchData = async () => {
       let list = [];
@@ -33,6 +34,7 @@ const TaskDatatable = () => {
     }
   }, []);
 
+  // Delete task
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "tasks", id));

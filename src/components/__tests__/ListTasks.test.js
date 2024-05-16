@@ -6,6 +6,7 @@ import TaskDatatable from "../../components/datatable/TaskDatatable";
 import "@testing-library/jest-dom";
 import ListTasks from "../../pages/list/ListTasks";
 
+// Mocking Firebase Firestore and Auth
 jest.mock("firebase/firestore", () => ({
   getFirestore: jest.fn().mockReturnValue({
     collection: jest.fn(() => ({
@@ -36,6 +37,7 @@ jest.mock("firebase/firestore", () => ({
   }),
 }));
 
+// Mocking Firebase Auth
 jest.mock("firebase/auth", () => ({
   getAuth: jest.fn(() => ({
     currentUser: {
@@ -44,6 +46,7 @@ jest.mock("firebase/auth", () => ({
   })),
 }));
 
+// Test case display tasks
 describe("Displaying Tasks in TaskDatatable", () => {
   it("renders tasks fetched from Firestore", async () => {
     render(
@@ -58,6 +61,7 @@ describe("Displaying Tasks in TaskDatatable", () => {
   });
 });
 
+// Test case navigation on View button click
 describe("Navigation on View button click", () => {
   it("navigates to the task detail view", async () => {
     const history = createMemoryHistory();
